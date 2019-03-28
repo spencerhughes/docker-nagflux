@@ -43,9 +43,11 @@ RUN mkdir ${GOPATH} && \
 	go get -v -u github.com/griesbacher/nagflux && \
 	go build github.com/griesbacher/nagflux && \
 	mkdir -p /opt/nagflux/config && \
+	touch /opt/nagflux/log && \
 	cp $GOPATH/bin/nagflux /opt/nagflux && \
 	mkdir -p /usr/local/nagios/var/spool/nagfluxperfdata && \
-	chown ${CONT_USER}:${CONT_USER} /usr/local/nagios/var/spool/nagfluxperfdata
+	chown ${CONT_USER}:${CONT_USER} /usr/local/nagios/var/spool/nagfluxperfdata && \
+	chown -R ${CONT_USER}:${CONT_USER} /opt/nagflux/*
 
 VOLUME /opt/nagflux/config
 
